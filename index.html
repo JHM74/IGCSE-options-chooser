@@ -1,1 +1,58 @@
-<!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Options Chooser</title>\n    <style>\n        .question { display: none; }\n        .question.active { display: block; }\n        .button { margin-top: 20px; }\n    </style>\n</head>\n<body>\n    <div id=\"form-container\">\n        <div class=\"question active\">\n            <h2>Question 1</h2>\n            <p>What is your favorite color?</p>\n            <button class=\"button\" onclick=\"nextQuestion(2)\">Next</button>\n        </div>\n        <div class=\"question\" id=\"question-2\">\n            <h2>Question 2</h2>\n            <p>What is your preferred mode of transport?</p>\n            <button class=\"button\" onclick=\"nextQuestion(3)\">Next</button>\n        </div>\n        <div class=\"question\" id=\"question-3\">\n            <h2>Question 3</h2>\n            <p>What type of cuisine do you enjoy the most?</p>\n            <button class=\"button\" onclick=\"nextQuestion(4)\">Next</button>\n        </div>\n        <div class=\"question\" id=\"question-4\">\n            <h2>Thank you!</h2>\n            <p>Your responses have been recorded.</p>\n        </div>\n    </div>\n    <script>\n        function nextQuestion(questionNumber) {\n            const current = document.querySelector(\".question.active\");\n            const next = document.querySelector(\"#question-\" + questionNumber);\n            current.classList.remove(\"active\");\n            if (next) {\n                next.classList.add(\"active\");\n            }\n        }\n    <\/script>\n</body>\n</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Phase Questionnaire</title>
+    <style>
+        #questionnaire {
+            font-family: Arial, sans-serif;
+        }
+        #navigation-buttons {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="questionnaire">
+        <div id="question-container">
+            <p id="question-text"></p>
+            <input type="text" id="answer-input" />
+            <div id="navigation-buttons">
+                <button id="back-button">Back</button>
+                <button id="next-button">Next</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const questions = [
+            "What is your career goal?",
+            "What are your interests?",
+            // Add more questions as needed
+        ];
+
+        let currentQuestion = 0;
+
+        function showQuestion(index) {
+            document.getElementById("question-text").innerText = questions[index];
+        }
+
+        document.getElementById("next-button").onclick = function() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                showQuestion(currentQuestion);
+            }
+        };
+
+        document.getElementById("back-button").onclick = function() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+            }
+        };
+
+        // Initial call to show the first question
+        showQuestion(currentQuestion);
+    </script>
+</body>
+</html>
